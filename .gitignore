@@ -1,0 +1,12 @@
+# UI
+ui/node_modules/
+ui/dist/
+ui/.vite/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
