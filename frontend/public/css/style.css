@@ -1,20 +1,22 @@
+/* ── Variables ───────────────────────────────────────────── */
+:root {
+  --bg:       #0a0a0f;
+  --surface:  #12121a;
+  --border:   #1e1e2e;
+  --text:     #e0e0f0;
+  --text-dim: #7070a0;
+  --accent:   #4fc3f7;
+  --leo:      #4fc3f7;
+  --meo:      #81c784;
+  --geo:      #ffb74d;
+  --heo:      #e57373;
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-:root {
-  --bg:        #0a0a0f;
-  --surface:   #12121a;
-  --border:    #1e1e2e;
-  --text:      #e0e0f0;
-  --text-dim:  #7070a0;
-  --accent:    #4fc3f7;
-  --leo:       #4fc3f7;
-  --meo:       #81c784;
-  --geo:       #ffb74d;
-  --heo:       #e57373;
 }
 
 html, body {
@@ -26,7 +28,7 @@ html, body {
   overflow: hidden;
 }
 
-/* ── Layout ─────────────────────────────────────────────── */
+/* ── Layout ──────────────────────────────────────────────── */
 
 #app {
   display: flex;
@@ -61,16 +63,27 @@ html, body {
 
 .hidden { display: none !important; }
 
-/* ── Header elements ─────────────────────────────────────── */
+/* ── Logo ────────────────────────────────────────────────── */
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent);
   white-space: nowrap;
+  text-decoration: none;
 }
+
+.logo-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ── View toggle ─────────────────────────────────────────── */
 
 #view-toggle {
   display: flex;
@@ -95,6 +108,8 @@ html, body {
   border-color: var(--accent);
 }
 
+/* ── Filter panel ────────────────────────────────────────── */
+
 #filter-panel {
   display: flex;
   align-items: center;
@@ -117,6 +132,7 @@ html, body {
   font-size: 13px;
   color: var(--text-dim);
   user-select: none;
+  margin-bottom: 0; /* override Bootstrap */
 }
 
 #filter-panel input[type="checkbox"] {
@@ -125,6 +141,8 @@ html, body {
   height: 13px;
   cursor: pointer;
 }
+
+/* ── Object count pill ───────────────────────────────────── */
 
 #object-count {
   font-size: 12px;
@@ -149,11 +167,6 @@ html, body {
   z-index: 200;
   padding: 44px 20px 20px;
   overflow-y: auto;
-  transition: transform 0.2s ease;
-}
-
-#sidebar.hidden {
-  display: none !important;
 }
 
 #sidebar-close {
@@ -164,14 +177,22 @@ html, body {
   border: none;
   color: var(--text-dim);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
-  padding: 4px;
+  padding: 4px 8px;
   border-radius: 4px;
   transition: color 0.15s;
 }
 
 #sidebar-close:hover { color: var(--text); }
+
+.sidebar-placeholder {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+/* ── Object detail content ───────────────────────────────── */
 
 .obj-header {
   display: flex;
@@ -200,13 +221,14 @@ html, body {
   font-family: monospace;
 }
 
-.badges {
+.obj-badges {
   display: flex;
   gap: 6px;
   margin-bottom: 14px;
 }
 
-.badge {
+/* Prefixed to avoid Bootstrap .badge conflicts */
+.obj-badge {
   display: inline-block;
   padding: 2px 9px;
   border-radius: 3px;
@@ -216,7 +238,7 @@ html, body {
   letter-spacing: 0.04em;
 }
 
-.badge-dim {
+.obj-badge-dim {
   background: var(--border) !important;
   color: var(--text-dim) !important;
 }
@@ -282,7 +304,7 @@ html, body {
 
 .legend-item:last-child { margin-bottom: 0; }
 
-/* ── Dot (shared by legend + filter panel) ───────────────── */
+/* ── Dots (legend + filter panel) ───────────────────────── */
 
 .dot {
   display: inline-block;
@@ -317,7 +339,7 @@ html, body {
 .st-tooltip::before { display: none !important; }
 
 .leaflet-control-attribution {
-  background: rgba(10,10,15,0.7) !important;
+  background: rgba(10, 10, 15, 0.7) !important;
   color: var(--text-dim) !important;
   font-size: 10px !important;
 }

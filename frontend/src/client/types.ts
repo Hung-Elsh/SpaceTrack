@@ -1,5 +1,5 @@
 export type ObjectType = 'PAYLOAD' | 'ROCKET_BODY' | 'DEBRIS';
-export type OrbitType = 'LEO' | 'MEO' | 'GEO' | 'HEO';
+export type OrbitType  = 'LEO' | 'MEO' | 'GEO' | 'HEO';
 
 export interface SpaceObject {
   id: string;

@@ -1,0 +1,32 @@
+<header id="header">
+  <div class="logo">
+    <span class="logo-icon">&#9678;</span> SpaceTrack
+  </div>
+
+  <div id="view-toggle">
+    <button id="btn-globe" class="active">3D Globe</button>
+    <button id="btn-map">2D Map</button>
+  </div>
+
+  <div id="filter-panel">
+    <span class="filter-label">Orbit:</span>
+    <label>
+      <input type="checkbox" data-orbit="LEO" checked />
+      <span class="dot leo"></span>LEO
+    </label>
+    <label>
+      <input type="checkbox" data-orbit="MEO" checked />
+      <span class="dot meo"></span>MEO
+    </label>
+    <label>
+      <input type="checkbox" data-orbit="GEO" checked />
+      <span class="dot geo"></span>GEO
+    </label>
+    <label>
+      <input type="checkbox" data-orbit="HEO" checked />
+      <span class="dot heo"></span>HEO
+    </label>
+  </div>
+
+  <div id="object-count">— objects</div>
+</header>

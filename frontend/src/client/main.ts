@@ -1,6 +1,3 @@
-import 'leaflet/dist/leaflet.css';
-import './style.css';
-
 import { spaceObjects, ORBIT_COLORS, COUNTRY_FLAG } from './data';
 import { initGlobe } from './globe';
 import { initMap } from './map';
@@ -37,18 +34,18 @@ function showSidebar(obj: SpaceObject) {
         <div class="obj-norad">NORAD #${obj.noradId}</div>
       </div>
     </div>
-    <div class="badges">
-      <span class="badge" style="background:${color}">${obj.orbitType}</span>
-      <span class="badge badge-dim">${obj.type}</span>
+    <div class="obj-badges">
+      <span class="obj-badge" style="background:${color}">${obj.orbitType}</span>
+      <span class="obj-badge obj-badge-dim">${obj.type}</span>
     </div>
     <p class="obj-desc">${obj.description}</p>
     <table class="obj-table">
-      <tr><td>Altitude</td>     <td>${obj.altitudeKm.toLocaleString()} km</td></tr>
-      <tr><td>Inclination</td>  <td>${obj.inclination}°</td></tr>
-      <tr><td>Period</td>       <td>${obj.periodMin} min</td></tr>
-      <tr><td>Country</td>      <td>${obj.country}</td></tr>
-      <tr><td>Launch date</td>  <td>${obj.launchDate}</td></tr>
-      <tr><td>Position</td>     <td>${obj.lat.toFixed(2)}°, ${obj.lon.toFixed(2)}°</td></tr>
+      <tr><td>Altitude</td>    <td>${obj.altitudeKm.toLocaleString()} km</td></tr>
+      <tr><td>Inclination</td> <td>${obj.inclination}°</td></tr>
+      <tr><td>Period</td>      <td>${obj.periodMin} min</td></tr>
+      <tr><td>Country</td>     <td>${obj.country}</td></tr>
+      <tr><td>Launch date</td> <td>${obj.launchDate}</td></tr>
+      <tr><td>Position</td>    <td>${obj.lat.toFixed(2)}°, ${obj.lon.toFixed(2)}°</td></tr>
     </table>
   `;
 
@@ -58,8 +55,11 @@ function showSidebar(obj: SpaceObject) {
 sidebarClose.addEventListener('click', () => sidebar.classList.add('hidden'));
 
 // --- Init views ---
-const globe             = initGlobe(globeContainer, filtered(), showSidebar);
-const { render: renderMap, map: leafletMap } = initMap(mapContainer, filtered(), showSidebar);
+const globe                              = initGlobe(globeContainer, filtered(), showSidebar);
+const { render: renderMap, map: leaflet } = initMap(mapContainer, filtered(), showSidebar);
+
+// Seed object count on load
+objectCount.textContent = `${filtered().length} objects`;
 
 // --- View toggle ---
 function switchView(view: 'globe' | 'map') {
@@ -73,7 +73,7 @@ function switchView(view: 'globe' | 'map') {
     globeContainer.classList.add('hidden');
     btnMap.classList.add('active');
     btnGlobe.classList.remove('active');
-    leafletMap.invalidateSize();
+    leaflet.invalidateSize();
   }
 }
 

@@ -19,7 +19,7 @@ export function initGlobe(
     .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg');
 
   function visualAltitude(km: number): number {
-    if (km < 2000) return 0.08;
+    if (km < 2000)  return 0.08;
     if (km < 35000) return 0.32;
     return 0.62;
   }
@@ -34,7 +34,7 @@ export function initGlobe(
       .pointRadius(0.45)
       .pointLabel((d: object) => {
         const o = d as SpaceObject;
-        return `<div style="padding:4px 8px;background:rgba(10,10,15,0.85);border:1px solid #333;border-radius:4px;font-family:sans-serif;font-size:12px">
+        return `<div style="padding:4px 8px;background:rgba(10,10,15,0.85);border:1px solid #333;border-radius:4px;font-size:12px">
           <b style="color:#e0e0f0">${o.name}</b><br/>
           <span style="color:#7070a0">${o.orbitType} · ${o.altitudeKm.toLocaleString()} km</span>
         </div>`;
