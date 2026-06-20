@@ -1,0 +1,15 @@
+{
+    "Rules": [
+      {
+        "ID": "MoveRawDataToGlacier",
+        "Status": "Enabled",
+        "Prefix": "datalake/",
+        "Transitions": [
+          {
+            "Days": 90,
+            "StorageClass": "GLACIER"
+          }
+        ]
+      }
+    ]
+  }

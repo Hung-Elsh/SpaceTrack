@@ -69,9 +69,10 @@ Tasks:
 
 Tasks:
 
-- [ ] Create Postgres schema (`tracked_objects`, `orbital_snapshots`, `pipeline_runs`)
-- [ ] Create S3 bucket with folder structure and lifecycle rules (raw data → Glacier after 90 days)
+- [x] Create Postgres schema (`tracked_objects`, `orbital_snapshots`, `pipeline_runs`)
+- [x] Create S3 bucket with folder structure and lifecycle rules (raw data → Glacier after 90 days)
 - [ ] Write a one-off script to backfill a historical snapshot (e.g., last 30 days from space-track.org)
+- [ ] Add backfill APIs to run proactively.
 - [ ] Set up Snowflake schema mirroring Postgres for historical analytics
 - [ ] Define Flask API endpoints and response shapes:
     - `GET /objects?date=&type=&orbit=` — filtered list with lat/lon/alt
