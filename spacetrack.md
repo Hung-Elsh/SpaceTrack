@@ -88,9 +88,9 @@ Tasks:
 
 Tasks:
 
-- [ ] Register space-track.org API credentials; test rate limits (limited to ~200 requests/hr)
-- [ ] Write Lambda function: fetch daily delta from space-track.org → upload raw JSON to S3
-- [ ] Set up EventBridge Scheduler to trigger Lambda daily (e.g., 02:00 UTC)
+- [x] Register space-track.org API credentials; test rate limits (limited to ~200 requests/hr)
+- [ ] Write script function: fetch daily delta from space-track.org → upload raw JSON to S3
+- [ ] Set up Cron to trigger script daily (e.g., 02:00 UTC)
 - [ ] Write Airflow DAG:
     1. Trigger: S3 file sensor detects new raw file
     2. Validate: row count, schema check, null NORAD IDs

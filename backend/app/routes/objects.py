@@ -1,26 +1,23 @@
 from flask import Blueprint, request, jsonify
-from ..services.object_service import ObjectService
+from ..models.tracked_objects import TrackedObject
 
 objects_bp = Blueprint("objects", __name__)
 
 
-# Endpoint: GET /api/objects?date=YYYY-MM-DD&type=PAYLOAD&orbit=LEO
 @objects_bp.route("/objects", methods=["GET"])
 def get_objects():
+    """GET /api/objects?date=YYYY-MM-DD&type=PAYLOAD&orbit=LEO"""
     date = request.args.get("date")
     object_type = request.args.get("type")
     orbit = request.args.get("orbit")
-
-    # TODO: call ObjectService.get_objects() and return results
-    data = ObjectService.get_objects(date=date, object_type=object_type, orbit=orbit)
+    data = TrackedObject.get_filtered(date=date, object_type=object_type, orbit=orbit)
     return jsonify(data), 200
 
 
-# Endpoint: GET /api/objects/<norad_id>
 @objects_bp.route("/objects/<int:norad_id>", methods=["GET"])
 def get_object_detail(norad_id):
-    # TODO: call ObjectService.get_object_detail() and return result
-    data = ObjectService.get_object_detail(norad_id)
+    """GET /api/objects/<norad_id>"""
+    data = TrackedObject.get_detail(norad_id)
     if not data:
         return jsonify({"error": "Object not found"}), 404
     return jsonify(data), 200
