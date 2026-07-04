@@ -38,3 +38,9 @@ def pulling_orbital_snapshots():
         records_loaded=data.get("records_loaded", 0),
     )
     return jsonify(data), 200
+
+@snapshots_bp.route("/snapshot/today", methods=["GET"])
+def get_today_orbital_snapshots():
+    """GET /api/snapshot/today"""
+    data = OrbitalSnapshots.get_today_orbital_snapshots()
+    return jsonify(data), 200

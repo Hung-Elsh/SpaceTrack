@@ -34,6 +34,12 @@ export async function fetchSnapshotDates(): Promise<unknown> {
   return res.json();
 }
 
+export async function fetchTodaySnapshots(): Promise<unknown> {
+  const res = await fetch(`${API_BASE}/snapshot/today`);
+  if (!res.ok) throw new Error(`Flask API ${res.status}`);
+  return res.json();
+}
+
 // --- Proactive pull APIs (status-code-aware — the caller relays 200/429/etc as-is) ---
 
 export async function pullObjects(): Promise<ProxyResult> {

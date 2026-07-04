@@ -1,4 +1,4 @@
-import { spaceObjects, ORBIT_COLORS, COUNTRY_FLAG } from './data';
+import { fetchSpaceObjects, ORBIT_COLORS, COUNTRY_FLAG } from './data';
 import { initGlobe } from './globe';
 import { initMap } from './map';
 import type { SpaceObject } from './types';
@@ -16,6 +16,7 @@ const filterCbs      = document.querySelectorAll<HTMLInputElement>('#filter-pane
 
 // --- State ---
 const activeOrbits = new Set<string>(['LEO', 'MEO', 'GEO', 'HEO']);
+let spaceObjects: SpaceObject[] = [];
 
 function filtered(): SpaceObject[] {
   return spaceObjects.filter(o => activeOrbits.has(o.orbitType));
@@ -55,41 +56,52 @@ function showSidebar(obj: SpaceObject) {
 sidebarClose.addEventListener('click', () => sidebar.classList.add('hidden'));
 
 // --- Init views ---
-const globe                              = initGlobe(globeContainer, filtered(), showSidebar);
-const { render: renderMap, map: leaflet } = initMap(mapContainer, filtered(), showSidebar);
-
-// Seed object count on load
-objectCount.textContent = `${filtered().length} objects`;
-
-// --- View toggle ---
-function switchView(view: 'globe' | 'map') {
-  if (view === 'globe') {
-    globeContainer.classList.remove('hidden');
-    mapContainer.classList.add('hidden');
-    btnGlobe.classList.add('active');
-    btnMap.classList.remove('active');
-  } else {
-    mapContainer.classList.remove('hidden');
-    globeContainer.classList.add('hidden');
-    btnMap.classList.add('active');
-    btnGlobe.classList.remove('active');
-    leaflet.invalidateSize();
+async function init(): Promise<void> {
+  try {
+    spaceObjects = await fetchSpaceObjects();
+  } catch {
+    objectCount.textContent = 'Unable to load data';
+    spaceObjects = [];
   }
+
+  const globe                              = initGlobe(globeContainer, filtered(), showSidebar);
+  const { render: renderMap, map: leaflet } = initMap(mapContainer, filtered(), showSidebar);
+
+  // Seed object count on load
+  objectCount.textContent = `${filtered().length} objects`;
+
+  // --- View toggle ---
+  function switchView(view: 'globe' | 'map') {
+    if (view === 'globe') {
+      globeContainer.classList.remove('hidden');
+      mapContainer.classList.add('hidden');
+      btnGlobe.classList.add('active');
+      btnMap.classList.remove('active');
+    } else {
+      mapContainer.classList.remove('hidden');
+      globeContainer.classList.add('hidden');
+      btnMap.classList.add('active');
+      btnGlobe.classList.remove('active');
+      leaflet.invalidateSize();
+    }
+  }
+
+  btnGlobe.addEventListener('click', () => switchView('globe'));
+  btnMap.addEventListener('click',   () => switchView('map'));
+
+  // --- Filters ---
+  filterCbs.forEach(cb => {
+    cb.addEventListener('change', () => {
+      const orbit = cb.dataset['orbit']!;
+      if (cb.checked) activeOrbits.add(orbit);
+      else             activeOrbits.delete(orbit);
+
+      const objs = filtered();
+      objectCount.textContent = `${objs.length} object${objs.length !== 1 ? 's' : ''}`;
+      globe.render(objs);
+      renderMap(objs);
+    });
+  });
 }
 
-btnGlobe.addEventListener('click', () => switchView('globe'));
-btnMap.addEventListener('click',   () => switchView('map'));
-
-// --- Filters ---
-filterCbs.forEach(cb => {
-  cb.addEventListener('change', () => {
-    const orbit = cb.dataset['orbit']!;
-    if (cb.checked) activeOrbits.add(orbit);
-    else             activeOrbits.delete(orbit);
-
-    const objs = filtered();
-    objectCount.textContent = `${objs.length} object${objs.length !== 1 ? 's' : ''}`;
-    globe.render(objs);
-    renderMap(objs);
-  });
-});
+init();

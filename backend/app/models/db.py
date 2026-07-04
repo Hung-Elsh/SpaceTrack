@@ -1,5 +1,6 @@
 import csv
 import os
+from datetime import datetime
 from pathlib import Path
 from flask_sqlalchemy import SQLAlchemy
 from spacetrack import SpaceTrackClient
@@ -16,8 +17,10 @@ def init_db(app):
 
 class Base(db.Model):
     __abstract__ = True
-    # NOTE: the live Postgres schema has no created_at/updated_at columns on any table
+
     id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     @staticmethod
     def pulling_from_spacetrack(table_name: str, **kwargs):

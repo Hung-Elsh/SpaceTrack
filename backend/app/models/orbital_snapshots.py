@@ -34,6 +34,72 @@ class OrbitalSnapshots(Base):
         return [row[0].isoformat() for row in rows]
 
     @classmethod
+    def get_today_orbital_snapshots(cls):
+        """
+        SELECT
+            o.id            AS id,
+            o.object_name   AS name,
+            o.norad_id      AS norad_id,
+            o.ob_type       AS type,
+            o.country_code  AS country,
+            o.launch_date   AS launch_date,
+            ss.lat, ss.lon, ss.altitude_km,
+            CASE
+                WHEN ss.eccentricity >= 0.25          THEN 'HEO'
+                WHEN ss.altitude_km  <  2000           THEN 'LEO'
+                WHEN ss.altitude_km  BETWEEN 35586 AND 35986 THEN 'GEO'
+                WHEN ss.altitude_km  <  35586          THEN 'MEO'
+                ELSE 'HEO'
+            END AS orbit_type,
+            ss.inclination, ss.period_min
+        FROM orbital_snapshots ss
+        JOIN tracked_objects o ON ss.tracked_object_id = o.id
+        WHERE ss.snapshot_date = CURRENT_DATE
+        ORDER BY o.norad_id
+        LIMIT 100
+        """
+        rows = (
+            db.session.query(cls, TrackedObject)
+            .join(TrackedObject, cls.tracked_object_id == TrackedObject.id)
+            .filter(cls.snapshot_date == datetime.utcnow().date())
+            .order_by(TrackedObject.norad_id)
+            .limit(100)
+            .all()
+        )
+
+        result = []
+        for snapshot, tracked_object in rows:
+            result.append({
+                "id": tracked_object.id,
+                "name": tracked_object.object_name,
+                "norad_id": tracked_object.norad_id,
+                "type": tracked_object.object_type,
+                "country": tracked_object.country_code,
+                "launch_date": tracked_object.launch_date.isoformat() if tracked_object.launch_date else None,
+                "lat": float(snapshot.lat),
+                "lon": float(snapshot.lon),
+                "altitude_km": snapshot.altitude_km,
+                "orbit_type": cls._classify_orbit(snapshot.altitude_km, snapshot.eccentricity),
+                "inclination": snapshot.inclination,
+                "period_min": snapshot.period_min,
+            })
+        return result
+
+    @staticmethod
+    def _classify_orbit(altitude_km, eccentricity):
+        """Classify orbit regime from instantaneous altitude and TLE eccentricity."""
+        if eccentricity >= 0.25:
+            return "HEO"
+        if altitude_km < 2000:
+            return "LEO"
+        if 35586 <= altitude_km <= 35986:
+            return "GEO"
+        if altitude_km < 35586:
+            return "MEO"
+        return "HEO"
+
+
+    @classmethod
     def pulling_orbital_snapshots(cls):
         """Pull the current GP (TLE) catalog from space-track.org, cache to CSV, then load orbital_snapshots."""
         pulled_at = datetime.utcnow()

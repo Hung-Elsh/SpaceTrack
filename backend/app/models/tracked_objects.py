@@ -10,8 +10,7 @@ class TrackedObject(Base):
 
     norad_id = db.Column(db.Integer, unique=True, nullable=False)
     object_name = db.Column(db.String(100))
-    # DB column is named "ob_type" (backed by native Postgres enum "object_type")
-    object_type = db.Column("ob_type", db.Enum(*OBJECT_TYPES, name="object_type", create_type=False), nullable=False)
+    object_type = db.Column(db.Enum(*OBJECT_TYPES, name="object_type", create_type=False), nullable=False)
     country_code = db.Column(db.String(10))
     launch_date = db.Column(db.Date)
     decay_date = db.Column(db.Date)

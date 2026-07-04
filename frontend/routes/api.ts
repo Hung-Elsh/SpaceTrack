@@ -3,6 +3,7 @@ import {
   fetchObjects,
   fetchObjectDetail,
   fetchSnapshotDates,
+  fetchTodaySnapshots,
   pullObjects,
   pullSnapshots,
   fetchBackfillStatus,
@@ -33,6 +34,15 @@ router.get('/objects/:noradId', async (req: Request, res: Response) => {
 router.get('/snapshot/dates', async (req: Request, res: Response) => {
   try {
     const data = await fetchSnapshotDates();
+    res.json(data);
+  } catch {
+    res.status(503).json({ error: 'Flask API not available' });
+  }
+});
+
+router.get('/snapshot/today', async (req: Request, res: Response) => {
+  try {
+    const data = await fetchTodaySnapshots();
     res.json(data);
   } catch {
     res.status(503).json({ error: 'Flask API not available' });
