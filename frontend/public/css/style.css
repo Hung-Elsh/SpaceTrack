@@ -83,6 +83,30 @@ html, body {
   line-height: 1;
 }
 
+/* ── Top nav ─────────────────────────────────────────────── */
+
+#top-nav {
+  display: flex;
+  gap: 3px;
+}
+
+#top-nav a {
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+#top-nav a:hover,
+#top-nav a.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
 /* ── View toggle ─────────────────────────────────────────── */
 
 #view-toggle {
@@ -356,4 +380,111 @@ html, body {
 
 .leaflet-control-zoom a:hover {
   background: var(--border) !important;
+}
+
+/* ── Data page ───────────────────────────────────────────── */
+
+body.data-page {
+  overflow: auto;
+}
+
+body.data-page #app {
+  height: auto;
+  min-height: 100vh;
+}
+
+#data-view {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pull-panel,
+.tree-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.pull-card,
+.tree-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.pull-card-header,
+.tree-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pull-card-header h2,
+.tree-card-header h3 {
+  font-size: 15px;
+  font-family: monospace;
+  color: var(--text);
+}
+
+.tree-hint {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.pull-status {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.btn-pull {
+  font-size: 13px;
+  padding: 5px 14px;
+}
+
+.btn-pull:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tree-view {
+  max-height: 320px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+.tree-empty {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.tree-root {
+  list-style: none;
+}
+
+.tree-node summary {
+  cursor: pointer;
+  padding: 4px 0;
+  color: var(--text);
+}
+
+.tree-node pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px 0 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-dim);
 }

@@ -3,6 +3,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import indexRouter from './routes/index';
 import apiRouter from './routes/api';
+import pagesRouter from './routes/pages';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/', pagesRouter);
 app.use('/api', apiRouter);
 
 app.listen(PORT, () => {

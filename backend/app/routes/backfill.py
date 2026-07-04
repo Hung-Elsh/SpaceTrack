@@ -1,14 +1,11 @@
-from flask import Blueprint, request, jsonify
-from ..models.backfill import BackfillLogs
+from flask import Blueprint, jsonify
+from ..models.pipeline_run_logs import PipelineRunLog
 
-objects_bp = Blueprint("objects", __name__)
+backfill_bp = Blueprint("backfill", __name__)
 
 
-@objects_bp.route("/objects/<int:norad_id>", methods=["GET"])
-def get_backfill_logs(norad_id):
-    """GET /api/objects/<norad_id>"""
-    data = BackfillLogs.get_logs()
-    if not data:
-        return jsonify({"error": "Object not found"}), 404
+@backfill_bp.route("/backfill/status", methods=["GET"])
+def get_backfill_status():
+    """GET /api/backfill/status"""
+    data = PipelineRunLog.get_status()
     return jsonify(data), 200
-

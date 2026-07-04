@@ -1,8 +1,15 @@
 <header id="header">
-  <div class="logo">
+  <a href="/" class="logo">
     <span class="logo-icon">&#9678;</span> SpaceTrack
-  </div>
+  </a>
 
+  <nav id="top-nav">
+    <a href="/" class="<%= locals.page === 'map' ? 'active' : '' %>">Map</a>
+    <a href="/data" class="<%= locals.page === 'data' ? 'active' : '' %>">Tracking Report</a>
+    <a href="/objects" class="<%= locals.page === 'objects' ? 'active' : '' %>">Tracking Object</a>
+  </nav>
+
+  <% if (locals.page === 'map') { %>
   <div id="view-toggle">
     <button id="btn-globe" class="active">3D Globe</button>
     <button id="btn-map">2D Map</button>
@@ -29,4 +36,5 @@
   </div>
 
   <div id="object-count">— objects</div>
+  <% } %>
 </header>

@@ -817,6 +817,33 @@ attrs = ">=18.1.0"
 redis = ["redis", "rfc3986 (>=1.2.0)"]
 
 [[package]]
+name = "sgp4"
+version = "2.27"
+description = "The C++ SGP4 routine that, given an Earth satellite TLE, computes its position."
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*,!=3.9.*,>=2.7"
+groups = ["main"]
+files = [
+    {file = "sgp4-2.27-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:89146bc62ec8c880ef991968ba2820c218d5c917ccc3291747aff2da4eccc30d"},
+    {file = "sgp4-2.27-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:cfd220b587d4f8fd999312c0b53488a37b45126b5c09b6b8d8b930fcb3558728"},
+    {file = "sgp4-2.27-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:d2fc2f68421b50757b7960199a0a7907b9b9807a1b78b9c70fa3523a8a63b630"},
+    {file = "sgp4-2.27-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:37f1c4d88ab89d9d1a6984b5a71126f3d65326df6f9b4df9dd6b3137633272d7"},
+    {file = "sgp4-2.27-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:1bce996676f2f7abca1a6b941a1c9b1dbbc18965c4b1d3e144a52176e717b915"},
+    {file = "sgp4-2.27-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:d6d0457252357db7546938b803ef207f1be8915887c229bf61e1714c4005412e"},
+    {file = "sgp4-2.27-cp310-cp310-win32.whl", hash = "sha256:00de539ce409011e2671031c3ab2f46d4dba17ca96c7db68d593851613bd68df"},
+    {file = "sgp4-2.27-cp310-cp310-win_amd64.whl", hash = "sha256:bc6b0a70f7bbe816af6a7f8deebec4d091e49b72498cb5d5b19850fd36219e63"},
+    {file = "sgp4-2.27-cp311-abi3-macosx_10_9_x86_64.whl", hash = "sha256:5ae1394cf0d91f54418530b02a797b14c10bb28e3f4ab616cad79a3fd67e2399"},
+    {file = "sgp4-2.27-cp311-abi3-macosx_11_0_arm64.whl", hash = "sha256:ee68f73cb2383bc950eada2ca1b10357b0165dbf5ab75185962009375bab8761"},
+    {file = "sgp4-2.27-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl", hash = "sha256:4d3775313120dcb6239535fa0c94cb6d5b089fd84bbfb15220923ae38dec7296"},
+    {file = "sgp4-2.27-cp311-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ef915c124cdd9807a4eae0abe655ade89076c2cee5df0392cad172aef456cd0e"},
+    {file = "sgp4-2.27-cp311-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:26cfb6b8ace44e56b71cba79294da61af083b96c6b12f6229dc761c4d8c833eb"},
+    {file = "sgp4-2.27-cp311-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:63d30826ebd303e66f184b1e3feba30524d01a379e50baacd47732dd447d97ab"},
+    {file = "sgp4-2.27-cp311-abi3-win32.whl", hash = "sha256:951ec95ea7f0fe0b5307fc2cd9d28c8923048bcf376b11c6cd93739e15b4722d"},
+    {file = "sgp4-2.27-cp311-abi3-win_amd64.whl", hash = "sha256:827c63feb60987ad177c2c80f3a927e721ead2f444d6560cd2a4337ca90d2490"},
+    {file = "sgp4-2.27.tar.gz", hash = "sha256:06d37247c6985739b707b8b39b6b83e06e8af783b2531e31965501ba983985f9"},
+]
+
+[[package]]
 name = "spacetrack"
 version = "0.15.0"
 description = "Python client for space-track.org"
@@ -988,4 +1015,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.14"
-content-hash = "63c3149597e96b642d7483e3290f6a9e0fc41818ee24a6acc5637fbc79690306"
+content-hash = "244e9d064428fccd9e75ba3f29b7d86cdb0f66e110a82c92df71ea756bc97fb8"

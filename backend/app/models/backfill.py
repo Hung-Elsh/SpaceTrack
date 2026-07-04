@@ -1,10 +1,4 @@
-from datetime import datetime
-
-from flask_sqlalchemy import SQLAlchemy
-
-from db import Base
-
-db = SQLAlchemy()
+from .db import Base, db
 
 ACTION_MODES = ("AUTO", "ACTIVE")
 
@@ -12,8 +6,8 @@ ACTION_MODES = ("AUTO", "ACTIVE")
 class BackfillLogs(Base):
     __tablename__ = "backfill_logs"
 
-    action_type = db.Column(db.Enum(ACTION_MODES), nullable=False, create_type=False)
-    backfill_table = db.Column(db.String, nullable=False)
+    action_type = db.Column(db.Enum(*ACTION_MODES, name="action_mode", create_type=False), nullable=False)
+    backfill_table = db.Column(db.String(20), nullable=False)
     successful = db.Column(db.Boolean, nullable=False, default=False)
 
     @classmethod

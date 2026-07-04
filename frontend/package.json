@@ -4,9 +4,11 @@
   "description": "SpaceTrack UI — Express + TypeScript",
   "scripts": {
     "dev:client": "esbuild src/client/main.ts --bundle --outfile=public/js/bundle.js --platform=browser --watch",
+    "dev:client:report": "esbuild src/client/reportPage.ts --bundle --outfile=public/js/report.js --platform=browser --watch",
+    "dev:client:objects": "esbuild src/client/objectsPage.ts --bundle --outfile=public/js/objects.js --platform=browser --watch",
     "dev:server": "nodemon --watch app.ts --watch routes --watch services --ext ts --exec \"ts-node app.ts\"",
-    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-    "build:client": "esbuild src/client/main.ts --bundle --outfile=public/js/bundle.js --platform=browser --minify",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:client:report\" \"npm run dev:client:objects\" \"npm run dev:server\"",
+    "build:client": "esbuild src/client/main.ts --bundle --outfile=public/js/bundle.js --platform=browser --minify && esbuild src/client/reportPage.ts --bundle --outfile=public/js/report.js --platform=browser --minify && esbuild src/client/objectsPage.ts --bundle --outfile=public/js/objects.js --platform=browser --minify",
     "build:server": "tsc",
     "build": "npm run build:client && npm run build:server",
     "start": "node dist/app.js"

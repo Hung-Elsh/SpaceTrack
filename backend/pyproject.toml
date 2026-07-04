@@ -13,6 +13,7 @@ flask-cors = "^4.0.1"
 psycopg2-binary = "^2.9.9"
 python-dotenv = "^1.0.1"
 spacetrack="^0.15.0"
+sgp4 = "^2.23"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0"
